@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "playtest": "node tests/playtest.mjs"
+    "playtest": "node tests/playtest.mjs",
+    "shots": "node tests/readme-shots.mjs"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",
@@ -17,5 +18,11 @@
   "devDependencies": {
     "playwright": "^1.63.0",
     "vite": "^8.3.1"
+  },
+  "description": "A browser glass-breaking rail shooter built with Three.js \u2014 fully procedural visuals and synthesized audio.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muinsaiyed/Shardwake.git"
   }
 }

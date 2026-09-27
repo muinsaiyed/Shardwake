@@ -1,89 +1,150 @@
+<div align="center">
+
 # SHARDWAKE
 
-A first-person rail shooter played in the browser (Three.js + Vite). It's inspired by the core loop of *Smash Hit*, with an original setting, visuals and audio.
+**A glass-breaking rail shooter that runs in your browser.**
 
-> **The Refractory** is an abandoned light-station adrift in a dim nebula. Its halls were built from lens-glass to focus starlight into the **Core Lens**, which has since gone dark. You're a maintenance drone pulled along the station's old light-rail, and all you have to work with is a hopper of iron spheres. Shatter the glass that has crept across the rail, and shoot the amber *prisms*, which still hold enough charge to forge new spheres. Get through four sectors to relight the Core.
+Ride the light-rail through a derelict station, throw iron spheres to shatter the glass in your path, and relight the Core Lens.
 
-## Run it
+[![Three.js](https://img.shields.io/badge/three.js-r186-black?logo=three.js)](https://threejs.org)
+[![Vite](https://img.shields.io/badge/vite-8-646cff?logo=vite&logoColor=white)](https://vitejs.dev)
+[![License: MIT](https://img.shields.io/badge/license-MIT-ffb640)](LICENSE)
+
+<img src="docs/images/title.jpg" alt="SHARDWAKE title screen: the logo over a live flythrough of a glass corridor" width="100%">
+
+</div>
+
+---
+
+## About
+
+SHARDWAKE is a first-person rail shooter. The camera moves forward on its own, so you never steer. All you do is aim and throw, and every throw costs ammunition. Break the glass before you hit it, shoot amber prisms to refill, and chain prism hits to throw more spheres at once.
+
+> **The Refractory** is an abandoned light-station adrift in a dim nebula. Its halls were built from lens-glass to focus starlight into the **Core Lens**, which has since gone dark. You're a maintenance drone pulled along the station's old light-rail, with nothing but a hopper of iron spheres. Get through four sectors and relight the Core.
+
+Every visual and every sound is **generated in code**: geometry, shaders, canvas textures, and music and sound effects synthesized with the Web Audio API. There are no image, model or audio files in the repository.
+
+The game is inspired by the core loop of *Smash Hit* (Mediocre, 2014). It's an independent fan project with its own name, setting, levels, art and music, and isn't affiliated with or endorsed by Mediocre.
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Sector 1, Vestibule: a teal corridor of square portals with a mirror floor](docs/images/sector1-vestibule.jpg) | ![Sector 2, Orrery Hall: violet neon rings, ringed planets and a spinning glass fan](docs/images/sector2-orrery.jpg) |
+| **Vestibule:** pale portals and floating monoliths | **Orrery Hall:** rotating rings and a nebula sky |
+| ![Sector 3, Foundry Lens: hex frames, a hazard-striped crusher and a green switch](docs/images/sector3-foundry.jpg) | ![Sector 4, Tidal Atrium: dark pillars, a swinging pendulum and a glass wall over rippling water](docs/images/sector4-atrium.jpg) |
+| **Foundry Lens:** crushers you park with a switch | **Tidal Atrium:** pendulums over a rippling floor |
+
+<p align="center">
+  <img src="docs/images/results.jpg" alt="Results screen with an A rank, 858 m distance and run stats" width="72%">
+  &nbsp;
+  <img src="docs/images/title-mobile.jpg" alt="Title screen on a phone" width="22%">
+</p>
+
+## Play
+
+You need [Node.js](https://nodejs.org) 18 or newer.
+
 ```bash
+git clone https://github.com/muinsaiyed/Shardwake.git
+cd Shardwake
 npm install
-npm run dev          # http://localhost:5173 (also served on your LAN for phones)
-npm run build        # static build in dist/ (relative paths, can be hosted anywhere)
-npm run preview      # serve the production build
+npm run dev
 ```
-Automated playtest (the dev server must be running; uses your installed Google Chrome):
-```bash
-npm run playtest                 # 25 checks + screenshots in tests/shots/
-node tests/shots.mjs 40 100 250  # warp to distances and screenshot them
-```
-Debug URL flags: `?bot` (autoplayer), `?ff=3` (fast-forward simulation ×3).
 
-## Controls
+Open **http://localhost:5173**. The dev server also listens on your local network, so you can open the address it prints on a phone on the same Wi-Fi. Headphones recommended.
+
+### Controls
+
 | Input | Action |
 |---|---|
-| Click / tap anywhere in the view | Throw an iron sphere toward that point |
-| Hold (during **Overdrive**) | Stream spheres continuously |
-| `Esc` / `P` / ❚❚ button | Pause / resume |
+| **Click / tap** anywhere | Throw an iron sphere at that point |
+| **Hold** (during Overdrive) | Throw continuously |
+| **Esc** / **P** / ❚❚ | Pause and resume |
 
-## Rules
-- You start with **25 spheres**. Each throw costs **1**, however many balls it fires.
-- Crashing into glass or a metal obstacle costs **10** and resets your streak. At **0** the run ends.
-- **Amber prisms** give +3 (small) or +5 (large, ringed).
-- **Streak:** every 5 prisms in a row add a ball to each throw, up to 5× (shown by the diamond pips and the ×N counter). Letting a prism slip past unbroken, or crashing, resets it to 1×.
-- **Green switches** open hazard-striped doors (some need 2–4 switches), and park crushers and pendulums out of the way.
-- **Power-ups** (hit them with a ball):
-  - **Overdrive** (magenta ∞, 6 s): unlimited spheres, hold to stream.
-  - **Nova Rounds** (violet starburst, 8 s): explosive spheres that shatter everything nearby and wreck crushers and pendulums.
-  - **Stasis** (cyan hourglass, 6 s): slows the world to 45 % and muffles the music.
-- **Checkpoints:** each sector you reach unlocks it on the title screen. After a game over you can retry from the sector you died in.
+## How to play
 
-## Sectors
-| # | Name | Palette / structure | New ideas |
+- **Ammo.** You start with **25** iron spheres. Each throw costs **1**, however many spheres it releases.
+- **Crashing.** Hitting glass or metal costs **10** spheres and resets your streak. At **0** the run ends.
+- **Prisms.** Amber prisms restore **+3** (small) or **+5** (large, ringed).
+- **Multi-throw.** Every **5 prisms in a row** adds a sphere to each throw, up to **5 at once**. The ×N counter and diamond pips show progress. Letting a prism slip past, or crashing, resets it to 1×.
+- **Switches.** Green switches open hazard-striped doors (the later doors need up to four) and park crushers and pendulums out of your path.
+- **Power-ups.** Hit one with a sphere to activate it:
+
+  | Power-up | Duration | Effect |
+  |---|---|---|
+  | **Overdrive** (magenta ∞) | 6 s | Unlimited spheres; hold to stream |
+  | **Nova Rounds** (violet starburst) | 8 s | Explosive spheres that clear nearby glass and wreck crushers and pendulums |
+  | **Stasis** (cyan hourglass) | 6 s | Slows the world to 45 % |
+
+- **Checkpoints.** Reaching a sector unlocks it on the title screen. After a game over you can retry from the sector where you ran out. Your best distance and unlocked sectors are saved in the browser.
+
+### The four sectors
+
+| # | Sector | Look | What it introduces |
 |---|---|---|---|
-| 1 | Vestibule | Pale teal, white square portals, floating monoliths | Panes, a full glass wall, sliding panes, tumbling cube, first switch door |
-| 2 | Orrery Hall | Indigo/violet, rotating neon rings, ringed planets | Glass fans, orbiting prisms, Overdrive into triple glass walls, metal lattice, 2-switch door |
-| 3 | Foundry Lens | Steel/charcoal, hex frames with orange lamps, beat-driven pistons | Crushers with switches, Nova Rounds, counter-sliding panes, 3-switch door |
-| 4 | Tidal Atrium | Deep green/aqua, towering pillars, rising halos, rippling floor | Pendulums, Stasis, counter-rotating fans, spinning pane, 4-switch final gate → Core Lens |
+| 1 | **Vestibule** | Pale teal portals, floating monoliths | Glass panes and walls, sliding panes, a tumbling glass cube, the first switch door |
+| 2 | **Orrery Hall** | Violet rings, ringed planets, nebula | Spinning glass fans, orbiting prisms, Overdrive into triple glass walls, metal lattices |
+| 3 | **Foundry Lens** | Steel hex frames, beat-driven pistons | Crushers, Nova Rounds, counter-sliding panes, a 3-switch door |
+| 4 | **Tidal Atrium** | Towering pillars over rippling water | Pendulums, Stasis, counter-rotating fans, the 4-switch final gate |
 
-Each sector has its own synthesized music track (96 → 108 → 120 → 126 BPM). Moving obstacles (sliding panes, fans, orbiting prisms, pistons) are phase-locked to the beat clock.
+Each sector has its own synthesized soundtrack (96 → 108 → 120 → 126 BPM), and the moving obstacles are locked to the beat.
 
-## Art direction
-- **Rendering:** a mirror floor (planar reflection with a rotated-disk blur and water ripple in the Atrium), plus a procedural nebula sky whose horizon matches the fog. HDR bloom, and 4× MSAA kept through the post-processing chain.
-- **Glass shader:** a crisp rim computed from each pane's real dimensions, a fresnel sheen with a thin-film iridescent tint, and a diagonal specular glint that sweeps across.
-- **Finishing pass:** radial speed blur, chromatic aberration (it spikes on crashes, streaks and power-ups), per-sector split-tone grading, vignette, film grain, and colour flashes at sector gates. Stasis desaturates the image.
-- **Motion:** ball trails, billboarded impact rings, drifting dust motes, jewel prisms (translucent shell with a hot core), a beat-locked camera bob and FOV kicks.
-- **UI:** Unbounded (display) with Manrope (text), a custom reticle cursor with tap pulses, and a title screen over a live attract-mode flythrough. Results show a rank badge, a count-up distance and staggered stat reveals.
-- **Auto-quality:** the game steps down if frame rate drops (mirror off → bloom off → lower resolution).
+## Under the hood
 
-## Project layout
+Built with [three.js](https://threejs.org) and [Vite](https://vitejs.dev), in plain JavaScript with no framework.
+
+- **Physics.** Custom swept collision (segment vs. oriented box and sphere), so fast spheres never tunnel through thin glass. The aim ray uses the same colliders as the physics, so spheres land where you point.
+- **Glass.** A GLSL shader draws crisp rims from each pane's real dimensions, adds a fresnel sheen with a thin-film iridescent tint, and sweeps a specular glint across. Pooled shards are drawn through a single `InstancedMesh`.
+- **Scene.** A planar-reflection mirror floor (with a water ripple in the Atrium), a procedural nebula sky that blends into the fog, and drifting dust.
+- **Post-processing.** HDR bloom with MSAA, then a finishing pass: speed blur, chromatic aberration that spikes on impacts, per-sector colour grading, vignette and film grain.
+- **Audio.** A small step sequencer (kick, hats, clap, saw bass, arps, pads, generated reverb) plus about 14 synthesized sound effects, including glass shatter, crash and prism chimes.
+- **Auto-quality.** If the frame rate drops, the game turns off the mirror, then bloom, then lowers the resolution.
+
+### Project layout
+
 ```
-index.html        HUD + screens markup
-src/main.js       UI wiring (HUD, title/pause/results, checkpoints)
-src/game.js       Rail movement, camera, shooting, collision, rules, rendering
-src/entities.js   Glass panels, fans, cube, lattice, prisms, switches, doors, crushers, pendulums, power-ups, Core Lens
-src/rooms.js      Sector palettes, decor builders, obstacle layouts
-src/fx.js         Pooled instanced glass shards + additive sparks/trails
-src/look.js       Glass shader, sky, mirror floor, finishing pass, dust, impact rings
-src/audio.js      Web Audio step sequencer (music) + procedural SFX
-docs/RESEARCH.md  Reference research, sources, confirmed vs assumed mechanics
-tests/            Playwright playtest + screenshot tools
+index.html          HUD and menu markup
+src/main.js         UI: HUD, title / pause / results screens, checkpoints
+src/game.js         Rail movement, camera, shooting, collision, rules, render loop
+src/entities.js     Glass panels, fans, lattices, prisms, switches, doors, crushers, pendulums, power-ups
+src/rooms.js        Sector palettes, decor and obstacle layouts
+src/look.js         Glass shader, sky, mirror floor, finishing pass, dust, impact rings
+src/fx.js           Glass shards, sparks and trails
+src/audio.js        Music sequencer and sound effects
+docs/RESEARCH.md    Research notes on the reference game's mechanics
+tests/              Automated playtest and screenshot scripts
 ```
 
-## Assets
-Everything visual and audio was made from scratch in code. The only third-party assets are two fonts, bundled locally through npm, so nothing is downloaded at runtime.
-| Asset | How it's made |
+Want to design your own sector? Each one is a short list of `P.add(distance, Entity, options)` calls in [`src/rooms.js`](src/rooms.js), plus a palette and a decor builder. The tuning constants (starting ammo, crash cost, streak length, throw speed, power-up durations) are at the top of [`src/game.js`](src/game.js).
+
+## Development
+
+| Command | What it does |
 |---|---|
-| Title/logo | CSS typography with an animated gradient shimmer; SVG favicon and reticle drawn inline |
-| Glass / sky / floor looks | Custom GLSL shaders in `src/look.js` |
-| Glass panes, fans, cube | Three.js box geometry, tinted transparent material with glowing edge lines |
-| Glass shards | One procedural triangular-prism geometry drawn through a pooled `InstancedMesh` |
-| Prisms, power-ups, switches | Octahedron/icosahedron/cylinder primitives; power-up icons drawn on canvas (∞, starburst, hourglass) |
-| Hazard stripes | Canvas-generated texture |
-| Floors (grid / circles / hex / water) | Canvas-generated textures |
-| Environment reflections | Three.js `RoomEnvironment` (built in, procedural) |
-| Music (6 tracks) | Web Audio step sequencer: synthesized kick, hats, clap, saw bass, arps and pads; generated reverb impulse |
-| Sound effects | Synthesized in real time: glass shatter, throw, prism chime, crash, metal clank, switch, door, explosion, power-up, streak, game over, victory |
+| `npm run dev` | Start the dev server with hot reload |
+| `npm run build` | Build a static site into `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run playtest` | Run the automated playtest (25 checks) |
+| `npm run shots` | Regenerate the README screenshots |
 
-Fonts: [Unbounded](https://fonts.google.com/specimen/Unbounded) and [Manrope](https://fonts.google.com/specimen/Manrope), both SIL Open Font License 1.1, installed via `@fontsource-variable/*`.
+**Deploying.** `npm run build` produces a fully static site that uses relative paths, so the `dist/` folder can be hosted anywhere, including GitHub Pages, Netlify or any file server.
 
-Libraries: [three.js](https://threejs.org) (MIT), [Vite](https://vitejs.dev) (MIT), [Playwright](https://playwright.dev) (Apache-2.0, tests only).
+**Automated playtest.** With the dev server running, `npm run playtest` drives the game in headless Chrome using [Playwright](https://playwright.dev). It checks throwing, ammo, prisms, streaks, crashes, pause, game over, restart, touch input and per-sector music. It also has an autoplayer finish the whole run, then saves screenshots to `tests/shots/`. It uses your installed Google Chrome by default; set `PW_CHANNEL` to use a different browser channel.
+
+**Debug URL flags:** `?bot` turns on the autoplayer, and `?ff=3` fast-forwards the simulation (up to 8×).
+
+## Browser support
+
+SHARDWAKE is tested in desktop Chrome, including a phone-sized touch emulation. It should run in any current browser with WebGL 2 (Edge, Firefox, Safari, and mobile Chrome and Safari), but those haven't been verified yet, so bug reports are welcome. Audio starts on your first click or tap, because browsers block autoplay.
+
+## Credits
+
+- Design, code, art and audio: procedurally generated for this project.
+- Fonts: [Unbounded](https://fonts.google.com/specimen/Unbounded) and [Manrope](https://fonts.google.com/specimen/Manrope), SIL Open Font License 1.1, bundled via [Fontsource](https://fontsource.org).
+- Libraries: [three.js](https://threejs.org) (MIT), [Vite](https://vitejs.dev) (MIT), and [Playwright](https://playwright.dev) (Apache-2.0, tests only).
+- Inspiration: *Smash Hit* by Mediocre. No assets, names or levels from it are used.
+
+## License
+
+[MIT](LICENSE): free to use, modify and share, including commercially. Keep the copyright notice.
