@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#05060d" />
+  <title>SHARDWAKE</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='32,4 58,32 32,60 6,32' fill='%23ffb640'/%3E%3Cpolygon points='32,14 48,32 32,50 16,32' fill='%2305060d'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <canvas id="view"></canvas>
+  <div id="fx-layer"></div>
+
+  <!-- In-game HUD -->
+  <div id="hud" class="hidden">
+    <div id="hud-top">
+      <div id="ammo-wrap">
+        <div id="ammo">25</div>
+        <div id="ammo-label"><span></span>IRON<span></span></div>
+      </div>
+      <div id="streak">
+        <div id="multi"><span id="multi-n">1</span><small>×</small></div>
+        <div id="pips"></div>
+      </div>
+    </div>
+    <div id="hud-left">
+      <div id="sector-name">VESTIBULE</div>
+      <div id="distance">0<small> m</small></div>
+    </div>
+    <button id="pause-btn" aria-label="Pause"><i></i><i></i></button>
+    <div id="power" class="hidden">
+      <div id="power-name">OVERDRIVE</div>
+      <div id="power-bar"><div id="power-fill"></div></div>
+    </div>
+    <div id="toast"></div>
+    <div id="hit-flash"></div>
+  </div>
+
+  <!-- Title screen -->
+  <div id="title" class="screen">
+    <div class="title-col">
+      <div class="eyebrow">A glass-breaking rail run · 4 sectors</div>
+      <h1 class="logo"><span class="l1">SHARD</span><span class="l2">WAKE</span></h1>
+      <p class="tag">The Refractory has gone dark. Ride the light-rail, shatter the glass, and relight the Core Lens.</p>
+      <div class="menu">
+        <button id="play-btn" class="btn primary"><span>Begin descent</span><b>→</b></button>
+        <div id="checkpoints"></div>
+      </div>
+      <ul class="howto">
+        <li><i class="g-ball"></i><div><b>Click / tap</b> to throw an iron sphere at that point</div></li>
+        <li><i class="g-prism"></i><div><b class="amber">Amber prisms</b> restore iron · chain them for multi-throw</div></li>
+        <li><i class="g-switch"></i><div><b class="green">Switches</b> open doors and park crushers</div></li>
+        <li><i class="g-hazard"></i><div><b class="red">Crashing</b> costs 10 iron · at zero the run ends</div></li>
+      </ul>
+      <div id="best" class="best"></div>
+    </div>
+    <div class="credit">Everything procedural · headphones recommended</div>
+  </div>
+
+  <!-- Pause -->
+  <div id="pause" class="screen hidden">
+    <div class="eyebrow">Run suspended</div>
+    <h2>Paused</h2>
+    <div class="menu">
+      <button id="resume-btn" class="btn primary"><span>Resume</span><b>→</b></button>
+      <button id="quit-btn" class="btn">Quit to title</button>
+    </div>
+    <label class="toggle"><input type="checkbox" id="mute-chk" /><span></span> Mute audio</label>
+  </div>
+
+  <!-- Results / Game over -->
+  <div id="results" class="screen hidden">
+    <div class="res-head">
+      <div id="rank" class="rank"><span>A</span></div>
+      <div>
+        <div class="eyebrow" id="res-eyebrow">Run complete</div>
+        <h2 id="res-title">Signal lost</h2>
+        <p id="res-sub" class="sub"></p>
+      </div>
+    </div>
+    <div class="hero-dist"><span id="res-dist">0</span><small>m</small><em id="res-best"></em></div>
+    <div id="res-stats" class="stats"></div>
+    <div class="menu row">
+      <button id="retry-btn" class="btn primary"><span>Retry</span><b>→</b></button>
+      <button id="restart-btn" class="btn">Restart run</button>
+      <button id="title-btn" class="btn ghost">Title</button>
+    </div>
+  </div>
+
+  <div id="sector-card" class="hidden">
+    <div class="sc-num">Sector 01 <i></i> 04</div>
+    <div class="sc-name">VESTIBULE</div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
